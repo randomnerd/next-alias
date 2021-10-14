@@ -1,22 +1,42 @@
 import '../styles/globals.css';
-import 'nprogress/nprogress.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'semantic-ui-css/semantic.min.css'
 import type { AppProps } from 'next/app';
-import NProgress from 'nprogress';
-import Router from 'next/router';
-import { PageTransition } from 'next-page-transitions';
+import Link from 'next/link'
+import { AnimatePresence, motion } from 'framer-motion';
+import { withHydrate } from "effector-next";
+import { useEffect, useState, lazy } from 'react';
+const enhance = withHydrate();
+import { useRouter } from 'next/dist/client/router';
+import Button from 'semantic-ui-react/dist/commonjs/elements/Button'
+import Container from 'semantic-ui-react/dist/commonjs/elements/Container'
+import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment'
+import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon'
+import Header from 'semantic-ui-react/dist/commonjs/elements/Header'
 
-Router.events.on('routeChangeStart', (url) => {
-    console.log(`Loading: ${url}`);
-    NProgress.start();
-});
-Router.events.on('routeChangeComplete', () => NProgress.done());
-Router.events.on('routeChangeError', () => NProgress.done());
-const TIMEOUT = 400
+
+// const Teams = lazy(() => import("./teams"));
+// const NewGame = lazy(() => import("../components/newgame"));
+// const Categories = lazy(() => import("../components/categories"));
+
+const GoBack = () => {
+    const router = useRouter()
+    return router.route === '/'
+        ? null
+        : (
+            <Button
+                floated='left'
+                className="back"
+                icon
+                onClick={() => router.back()}
+            >
+                <Icon name="arrow left" />
+            </Button>
+        )
+}
 
 const Loader = () => (
     <div className="loader">
-      <style jsx>{`
+        <style jsx>{`
         .loader {
           border: 8px solid #f3f3f3; /* Light grey */
           border-top: 8px solid #3498db; /* Blue */
@@ -39,56 +59,67 @@ const Loader = () => (
         }
       `}</style>
     </div>
-  )
+);
+
+const useTransitionDirection = () => {
+    const router = useRouter()
+    const [lastIdx, setLastIdx] = useState(0)
+    const [reverse, setReverse] = useState(false)
+    useEffect(() => {
+        router.beforePopState((newState: any) => {
+            setReverse(lastIdx > newState.idx)
+            return true
+        })
+        const newRouteHandler = (...args: any) => {
+            const currentIdx = window.history.state.idx
+            setLastIdx(currentIdx)
+            if (reverse) setTimeout(() => setReverse(false), 400)
+        }
+        router.events.on('routeChangeComplete', newRouteHandler)
+        return () => {
+            router.events.off('routeChangeComplete', newRouteHandler)
+        }
+    })
+    return reverse
+}
+
+const Heading = () => (
+    <Container className="Heading">
+        <Segment basic>
+            <GoBack/>
+            <Header textAlign='center' size="huge">
+                ALIAS
+            </Header>
+        </Segment>
+    </Container>
+)
 
 function MyApp({ Component, pageProps }: AppProps) {
+    const rev = useTransitionDirection()
+    const router = useRouter()
     return (
-        <>
-        <PageTransition
-            timeout={TIMEOUT}
-            classNames="page-transition"
-            loadingComponent={<Loader />}
-            loadingDelay={500}
-            loadingTimeout={{
-                enter: TIMEOUT,
-                exit: 0,
-            }}
-            loadingClassNames="loading-indicator"
-        >
-            <Component {...pageProps} />
-        </PageTransition>
-        <style jsx global>{`
-        .page-transition-enter {
-          opacity: 0;
-          transform: translate3d(-100%, 0, 0);
-        }
-        .page-transition-enter-active {
-          opacity: 1;
-          transform: translate3d(0, 0, 0);
-          transition: transform ${TIMEOUT}ms;
-        }
-        .page-transition-exit {
-          opacity: 1;
-          transform: translate3d(0, 0, 0);
-        }
-        .page-transition-exit-active {
-          opacity: 0;
-          transition: transform ${TIMEOUT}ms;
-          transform: translate3d(100%, 0, 0);
-        }
-        .loading-indicator-appear,
-        .loading-indicator-enter {
-          opacity: 0;
-          transform: translate3d(-100%, 0, 0);
-        }
-        .loading-indicator-appear-active,
-        .loading-indicator-enter-active {
-          opacity: 1;
-          transform: translate3d(0, 0, 0);
-          transition: transform ${TIMEOUT}ms;
-        }
-      `}</style>
-        </>
+        <div className="App">
+        <Heading />
+        <AnimatePresence exitBeforeEnter initial={false}>
+            <motion.div
+                initial={{ x: rev ? '-80vw' : '80vw', opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: rev ? '80vw' : '-80vw', opacity: 0 }}
+                key={router.route}
+                transition={{ duration: 0.3 }}
+                className="Page"
+            >
+                <Container>
+                    <Segment basic>
+                        <Component {...pageProps} />
+                    </Segment>
+                </Container>
+            </motion.div>
+        </AnimatePresence>
+        </div>
     );
 }
-export default MyApp;
+export default
+enhance(
+    MyApp
+);
