@@ -1,6 +1,7 @@
 import 'source-map-support/register'
-import Document from 'next/document'
+import Document, { Html, Head, NextScript, Main } from 'next/document'
 import { withFork } from "effector-next";
+import React from 'react';
 // import { pageLoaded } from "../models";
 
 const enhance = withFork({ debug: false });
@@ -14,7 +15,7 @@ const enhance = withFork({ debug: false });
 // }
 
 
-// class MyDocument extends Document {
+class MyDocument extends Document {
 //   static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {
 //     const originalRenderPage = ctx.renderPage
 //     const enhanceComponent = withStart(pageLoaded as any);
@@ -34,17 +35,17 @@ const enhance = withFork({ debug: false });
 
 //   }
 // }
-//   render() {
-//     return (
-//       <Html lang="en">
-//         <Head />
-//         <BackgroundPattern>
-//           <Main />
-//           <NextScript />
-//         </BackgroundPattern>
-//       </Html>
-//     )
-//   }
-// }
+  render() {
+    return (
+      <Html lang="en">
+        <Head />
+          <title>ALIAS</title>
+          <meta name="description" content="ALIAS game"/>
+          <Main />
+          <NextScript />
+      </Html>
+    )
+  }
+}
 
-  export default enhance(Document)
+  export default enhance(MyDocument)

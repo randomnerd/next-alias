@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/globals.css';
-import type { AppProps } from 'next/app';
+import type { AppProps, NextWebVitalsMetric } from 'next/app';
+import Head from 'next/head';
 import { AnimatePresence, motion } from 'framer-motion';
 import { withHydrate } from "effector-next";
 import React, { useEffect, useState } from 'react';
@@ -104,6 +105,10 @@ function MyApp({ Component, pageProps }: AppProps) {
         </div>
     );
 }
+export function reportWebVitals(metric: NextWebVitalsMetric) {
+    console.log(metric)
+}
+
 export default
 enhance(
     MyApp
