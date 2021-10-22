@@ -106,7 +106,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 animate={{ x: 0, opacity: 1 }}
                 exit={{ x: rev ? '80vw' : '-80vw', opacity: 0 }}
                 key={router.route}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0.25 }}
                 className="Page"
             >
                 <Container>
