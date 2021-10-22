@@ -1,18 +1,14 @@
+import 'bootstrap/dist/css/bootstrap-reboot.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/globals.css';
-import 'semantic-ui-css/semantic.min.css'
 import type { AppProps } from 'next/app';
 import Link from 'next/link'
 import { AnimatePresence, motion } from 'framer-motion';
 import { withHydrate } from "effector-next";
-import { useEffect, useState, lazy } from 'react';
+import React, { useEffect, useState, lazy } from 'react';
 const enhance = withHydrate();
 import { useRouter } from 'next/dist/client/router';
-import Button from 'semantic-ui-react/dist/commonjs/elements/Button'
-import Container from 'semantic-ui-react/dist/commonjs/elements/Container'
-import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment'
-import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon'
-import Header from 'semantic-ui-react/dist/commonjs/elements/Header'
-
+import { Button, Container } from 'react-bootstrap';
 
 // const Teams = lazy(() => import("./teams"));
 // const NewGame = lazy(() => import("../components/newgame"));
@@ -24,12 +20,12 @@ const GoBack = () => {
         ? null
         : (
             <Button
-                floated='left'
                 className="back"
-                icon
+                // icon
                 onClick={() => router.back()}
             >
-                <Icon name="arrow left" />
+                {/* <Icon name="arrow left" /> */}
+                &laquo;
             </Button>
         )
 }
@@ -84,13 +80,11 @@ const useTransitionDirection = () => {
 }
 
 const Heading = () => (
-    <Container className="Heading">
-        <Segment basic>
-            <GoBack/>
-            <Header textAlign='center' size="huge">
+    <Container className="text-center">
+            {/* <GoBack/> */}
+            <h1>
                 ALIAS
-            </Header>
-        </Segment>
+            </h1>
     </Container>
 )
 
@@ -109,10 +103,8 @@ function MyApp({ Component, pageProps }: AppProps) {
                 transition={{ duration: 0.25 }}
                 className="Page"
             >
-                <Container>
-                    <Segment basic>
+                <Container className={`text-center ${Component.name}`}>
                         <Component {...pageProps} />
-                    </Segment>
                 </Container>
             </motion.div>
         </AnimatePresence>

@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { Checkbox, Label, Segment } from 'semantic-ui-react'
-import { Slider } from 'react-semantic-ui-range'
+import Form from 'react-bootstrap/Form';
 import styles from '../styles/NewGame.module.css'
 
 const NewGame = () => {
@@ -9,11 +8,11 @@ const NewGame = () => {
     const [skipPenalty, setSkipPenalty] = useState(true)
     return (
         <div className="NewGame">
-            <Segment>
-                <Label ribbon size="large" color="blue">
+                <Form.Label>
                     Words to win: {wordCount}
-                </Label>
-                <Slider
+                </Form.Label>
+                <Form.Range min={10} max={200} step={5} onChange={e => setWordCount(Number(e.currentTarget.value))} />
+                {/* <Slider
                     discrete
                     value={wordCount}
                     style={{
@@ -35,12 +34,13 @@ const NewGame = () => {
                         step: 5,
                         onChange: (value: number) => setWordCount(value)
                     }}
-                />
+                /> */}
                 <br />
-                <Label ribbon size="large" color="blue">
+                <Form.Label>
                     Round time: {roundTime}
-                </Label>
-                <Slider
+                </Form.Label>
+                <Form.Range min={10} max={120} step={5} onChange={e => setRoundTime(Number(e.currentTarget.value))} />
+                {/* <Slider
                     discrete
                     value={roundTime}
                     style={{
@@ -64,18 +64,16 @@ const NewGame = () => {
                             setRoundTime(value)
                         }
                     }}
-                />
+                /> */}
                 <br />
-                <Label ribbon size="large" color="blue">
+                <Form.Label>
                     Penalty for skipping a word
-                </Label>
-                <Checkbox
+                </Form.Label>
+                <Form.Check
                     className={styles.checkbox}
                     checked={skipPenalty}
-                    toggle
                     onChange={() => setSkipPenalty(!skipPenalty)}
                 />
-            </Segment>
         </div>
     )
 }

@@ -1,11 +1,13 @@
 import { useList, useStore } from 'effector-react'
-import Button from 'semantic-ui-react/dist/commonjs/elements/Button'
-import Label from 'semantic-ui-react/dist/commonjs/elements/Label'
-import Input from 'semantic-ui-react/dist/commonjs/elements/Input'
-import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon'
-import Card from 'semantic-ui-react/dist/commonjs/views/Card'
+import React from 'react';
+import { PlusSquare, X } from 'react-bootstrap-icons';
+import Form from 'react-bootstrap/Form';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import CardGroup from 'react-bootstrap/CardGroup';
+import InputGroup from 'react-bootstrap/InputGroup';
 
-// import 'semantic-ui-css/components/label.css'
+// import 'semantic-ui-css/components/Form.label.css'
 // import 'semantic-ui-css/components/card.css'
 // import 'semantic-ui-css/components/icon.css'
 // import 'semantic-ui-css/components/button.css'
@@ -32,10 +34,10 @@ const WordView = ({ wordValue }: any) => {
     const word = useWord(wordValue)
     if (!word) return (<div></div>)
     return (
-        <Label>
+        <Form.Label>
             {word.value}
-            <Icon name='close' link onClick={() => wordApi.removeWord(word.value)} />
-        </Label>
+            <X name='close' onClick={() => wordApi.removeWord(word.value)} />
+        </Form.Label>
     )
 }
 
@@ -52,22 +54,23 @@ const NewCategoryInput = () => {
         categoryApi.create(categoryInputValue)
         categoryInputApi.setValue('')
     }
-    const addCategoryIcon = <Icon name='add' link onClick={addCategory}/>
+    const addCategoryIcon = <PlusSquare name='add' onClick={addCategory}/>
     const inputKeyUp = (e: any) => {
         if (e.code !== "Enter") return
         addCategory()
     }
     return (
-        <Input fluid
-            size="large"
-            className="CategoryInput"
-            type="text"
-            placeholder='Name a new category...'
-            icon={addCategoryIcon}
-            onKeyUp={inputKeyUp}
-            onChange={changeCategoryInput}
-            value={categoryInputValue}
-        />
+        <InputGroup>
+            <Form.Control
+                size="lg"
+                type="text"
+                placeholder='Name a new category...'
+                onKeyUp={inputKeyUp}
+                onChange={changeCategoryInput}
+                value={categoryInputValue}
+            />
+            <Button>{addCategoryIcon}</Button>
+        </InputGroup>
     )
 }
 
@@ -77,22 +80,23 @@ const NewWordInput = () => {
         wordApi.create(wordInputValue)
         wordInputApi.setValue('')
     }
-    const addWordIcon = <Icon name='add' link onClick={addWord}/>
+    const addWordIcon = <PlusSquare name='add' onClick={addWord}/>
     const inputKeyUp = (e: any) => {
         if (e.code !== "Enter") return
         addWord()
     }
     return (
-        <Input fluid
-            size="small"
-            id='categoryName'
-            type="text"
-            placeholder='Name a new word...'
-            icon={addWordIcon}
-            onKeyUp={inputKeyUp}
-            onChange={changeWordInput}
-            value={wordInputValue}
-        />
+        <InputGroup>
+            <Form.Control
+                size="lg"
+                type="text"
+                placeholder='Name a new word...'
+                onKeyUp={inputKeyUp}
+                onChange={changeWordInput}
+                value={wordInputValue}
+            />
+            <Button>{addWordIcon}</Button>
+        </InputGroup>
     )
 }
 
@@ -100,40 +104,30 @@ const CategoryView = ({ categoryName }: any) => {
     const category = useCategory(categoryName)
     if (!category) return (<div></div>)
     return (
-        <Card fluid>
-            <Card.Content>
+        <Card>
                 <Card.Header>
                     {category.name}
                     <Button
-                        circular
-                        inverted
-                        size="mini"
-                        color="red"
-                        icon="close"
-                        floated="right"
                         onClick={() => categoryApi.removeCategory(category.name)}
-                    />
+                    >&times;</Button>
                 </Card.Header>
-                <Card.Description>
+                <Card.Body>
                     Games: {category.games}<br/>
                     Guesses: {category.guesses}<br/>
                     Declines: {category.declines}<br/>
-                </Card.Description>
-            </Card.Content>
-            <Card.Content extra>
-                <WordListView category={category} />
-            </Card.Content>
-            <Card.Content extra>
-                <NewWordInput />
-            </Card.Content>
+                </Card.Body>
+                <Card.Footer>
+                    <WordListView category={category} />
+                    <NewWordInput />
+                </Card.Footer>
         </Card>
     )
 }
 
 const CategoryListView = () => (
-    <Card.Group itemsPerRow={2}>
+    <CardGroup>
         { useList($categoryNames, name => <CategoryView categoryName={name} />) }
-    </Card.Group>
+    </CardGroup>
 )
 
 const Categories = () => (
