@@ -1,11 +1,6 @@
 import React from 'react'
 import { useList, useStore, useStoreMap } from 'effector-react'
 import { PlusCircle } from 'react-bootstrap-icons'
-// import 'semantic-ui-css/components/card.css'
-// import 'semantic-ui-css/components/button.css'
-// import 'semantic-ui-css/components/icon.css'
-// import 'semantic-ui-css/components/input.css'
-// import '../css/teams.css'
 import {
     teamApi,
     $teamNames,

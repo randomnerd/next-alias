@@ -1,18 +1,13 @@
-import 'bootstrap/dist/css/bootstrap-reboot.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
-import Link from 'next/link'
 import { AnimatePresence, motion } from 'framer-motion';
 import { withHydrate } from "effector-next";
-import React, { useEffect, useState, lazy } from 'react';
+import React, { useEffect, useState } from 'react';
 const enhance = withHydrate();
 import { useRouter } from 'next/dist/client/router';
-import { Button, Container } from 'react-bootstrap';
-
-// const Teams = lazy(() => import("./teams"));
-// const NewGame = lazy(() => import("../components/newgame"));
-// const Categories = lazy(() => import("../components/categories"));
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
 
 const GoBack = () => {
     const router = useRouter()
@@ -81,10 +76,8 @@ const useTransitionDirection = () => {
 
 const Heading = () => (
     <Container className="text-center">
-            {/* <GoBack/> */}
-            <h1>
-                ALIAS
-            </h1>
+        {/* <GoBack/> */}
+        <h1>ALIAS</h1>
     </Container>
 )
 
@@ -103,7 +96,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 transition={{ duration: 0.25 }}
                 className="Page"
             >
-                <Container className={`text-center ${Component.name}`}>
+                <Container className={`text-center ${Component.name || Component.displayName}`}>
                         <Component {...pageProps} />
                 </Container>
             </motion.div>

@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import Form from 'react-bootstrap/Form';
-import styles from '../styles/NewGame.module.css'
 
 const NewGame = () => {
     const [wordCount, setWordCount] = useState(30)
@@ -70,7 +69,6 @@ const NewGame = () => {
                     Penalty for skipping a word
                 </Form.Label>
                 <Form.Check
-                    className={styles.checkbox}
                     checked={skipPenalty}
                     onChange={() => setSkipPenalty(!skipPenalty)}
                 />
