@@ -26,7 +26,7 @@
     "@types/react": "17.0.34",
     "effector-inspector": "^0.7.4",
     "effector-logger": "^0.13.1",
-    "eslint": "8",
+    "eslint": "<8.0.0",
     "eslint-config-next": "12.0.2",
     "typescript": "4.4.4"
   }
