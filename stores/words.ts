@@ -11,11 +11,11 @@ export interface Word {
 export interface WordList { [name: string]: Word }
 
 export const newWord = (value: string): Word => ({ value, guesses: 0, declines: 0 })
-export const $wordInput = createStore('')
+export const $wordInput = createStore<string>('', { name: 'WordInput' })
 export const wordInputApi = createApi($wordInput, {
     setValue: (_, value: string) => value
 })
-export const $words = createStore<WordList>({})
+export const $words = createStore<WordList>({}, { name: 'Words' })
 export const $wordValues = $words.map(words => Object.keys(words))
 export const wordApi = createApi($words, {
     create(state, value: string): WordList | undefined {

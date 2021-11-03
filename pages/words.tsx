@@ -32,7 +32,7 @@ import {
 
 const WordView = ({ wordValue }: any) => {
     const word = useWord(wordValue)
-    if (!word) return (<div></div>)
+    if (!word) return null
     return (
         <Form.Label>
             {word.value}
@@ -102,7 +102,7 @@ const NewWordInput = () => {
 
 const CategoryView = ({ categoryName }: any) => {
     const category = useCategory(categoryName)
-    if (!category) return (<div></div>)
+    if (!category) return null
     return (
         <Card>
                 <Card.Header>
@@ -124,11 +124,15 @@ const CategoryView = ({ categoryName }: any) => {
     )
 }
 
-const CategoryListView = () => (
-    <CardGroup>
-        { useList($categoryNames, name => <CategoryView categoryName={name} />) }
-    </CardGroup>
-)
+const CategoryListView = () => {
+    const categories = useList(
+        $categoryNames,
+        name => <CategoryView categoryName={name} />
+    )
+    return (
+        <CardGroup>{ categories }</CardGroup>
+    )
+}
 
 const Categories = () => (
     <div className="Categories">

@@ -9,7 +9,7 @@ export interface Team {
 export interface TeamList { [name: string]: Team }
 
 export const newTeam = (name: string): Team => ({ name, wins: 0 })
-export const $teams = createStore<TeamList>({})
+export const $teams = createStore<TeamList>({}, { name: 'TeamList' })
 export const $teamNames = $teams.map(teams => Object.keys(teams))
 export const teamApi = createApi($teams, {
     create(state, name: string): TeamList | undefined {
@@ -32,7 +32,7 @@ export const teamApi = createApi($teams, {
         return { ...state, [name]: teamCopy }
     }
 })
-export const $teamInput = createStore('')
+export const $teamInput = createStore('', { name: 'TeamInput' })
 export const teamInputApi = createApi($teamInput, {
     setValue: (_, value: string) => value
 })

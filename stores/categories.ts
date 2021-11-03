@@ -13,12 +13,12 @@ export interface Category {
 
 export interface CategoryList { [name: string]: Category }
 export const newCategory = (name: string): Category => ({ name, guesses: 0, declines: 0, words: [], games: 0 })
-export const $categoryInput = createStore('')
+export const $categoryInput = createStore('', { name: 'CategoryInput' })
 export const categoryInputApi = createApi($categoryInput, {
     setValue: (_, value: string) => value
 })
 
-export const $categories = createStore<CategoryList>({})
+export const $categories = createStore<CategoryList>({}, { name: 'Categories' })
 export const $categoryNames = $categories.map(categories => Object.keys(categories))
 export const categoryApi = createApi($categories, {
     create(state, name: string): CategoryList | undefined {

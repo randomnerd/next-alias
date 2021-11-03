@@ -9,6 +9,7 @@ const enhance = withHydrate();
 import { useRouter } from 'next/dist/client/router';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
+import 'effector-logger/inspector';
 
 const GoBack = () => {
     const router = useRouter()
@@ -106,7 +107,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     );
 }
 export function reportWebVitals(metric: NextWebVitalsMetric) {
-    console.log(metric)
+    // console.log(metric)
 }
 
 export default
