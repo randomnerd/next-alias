@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
-// const { withEffectorReactAliases } = require("effector-next/tools");
+const { withEffectorReactAliases } = require("effector-next/tools");
 
-// const enhance = withEffectorReactAliases();
+const enhance = withEffectorReactAliases();
 
 // module.exports = enhance({
 //   experimental: {
@@ -38,21 +38,22 @@
 // module.exports = process.env.NODE_ENV === 'production'
 //   ? enhance(config)
 //   : config
-module.exports = {
+module.exports = enhance({
   eslint: { ignoreDuringBuilds: true },
-  // webpack5: true,
-  // optimizeFonts: true,
-  swcMinify: true,
+  webpack5: true,
+  optimizeFonts: true,
+  // swcMinify: true,
   reactStrictMode: true,
   // generateEtags: true,
-  // outputFileTracing: true,
+  outputFileTracing: true,
   experimental: {
     // plugins: true,
     // serverComponents: true,
     // concurrentFeatures: true,
+    // concurrentFeatures: process.env.NODE_ENV === 'production',
     reactRoot: true,
     // optimizeImages: true,
-    // optimizeCss: true,
+    optimizeCss: true,
 
   }
-}
+});
