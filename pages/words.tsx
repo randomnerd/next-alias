@@ -1,18 +1,11 @@
 import { useList, useStore } from 'effector-react'
 import React from 'react';
-import { PlusSquare, X } from 'react-bootstrap-icons';
+import { PlusCircle, X } from 'react-bootstrap-icons';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import CardGroup from 'react-bootstrap/CardGroup';
 import InputGroup from 'react-bootstrap/InputGroup';
-
-// import 'semantic-ui-css/components/Form.label.css'
-// import 'semantic-ui-css/components/card.css'
-// import 'semantic-ui-css/components/icon.css'
-// import 'semantic-ui-css/components/button.css'
-// import 'semantic-ui-css/components/input.css'
-// import '../css/categories.css'
 import {
     $categoryInput,
     categoryApi,
@@ -29,6 +22,9 @@ import {
     wordInputApi,
     changeWordInput
 } from '../stores/words'
+import { withStart } from "effector-next";
+import { pageLoaded } from "../stores/common";
+const enhance = withStart(pageLoaded as any);
 
 const WordView = ({ wordValue }: any) => {
     const word = useWord(wordValue)
@@ -54,7 +50,7 @@ const NewCategoryInput = () => {
         categoryApi.create(categoryInputValue)
         categoryInputApi.setValue('')
     }
-    const addCategoryIcon = <PlusSquare name='add' onClick={addCategory}/>
+    const addCategoryIcon = <PlusCircle name='add' onClick={addCategory}/>
     const inputKeyUp = (e: any) => {
         if (e.code !== "Enter") return
         addCategory()
@@ -80,7 +76,7 @@ const NewWordInput = () => {
         wordApi.create(wordInputValue)
         wordInputApi.setValue('')
     }
-    const addWordIcon = <PlusSquare name='add' onClick={addWord}/>
+    const addWordIcon = <PlusCircle name='add' onClick={addWord}/>
     const inputKeyUp = (e: any) => {
         if (e.code !== "Enter") return
         addWord()
@@ -105,21 +101,21 @@ const CategoryView = ({ categoryName }: any) => {
     if (!category) return null
     return (
         <Card>
-                <Card.Header>
-                    {category.name}
-                    <Button
-                        onClick={() => categoryApi.removeCategory(category.name)}
-                    >&times;</Button>
-                </Card.Header>
-                <Card.Body>
-                    Games: {category.games}<br/>
-                    Guesses: {category.guesses}<br/>
-                    Declines: {category.declines}<br/>
-                </Card.Body>
-                <Card.Footer>
-                    <WordListView category={category} />
-                    <NewWordInput />
-                </Card.Footer>
+            <Card.Header>
+                {category.name}
+                <Button
+                    onClick={() => categoryApi.removeCategory(category.name)}
+                >&times;</Button>
+            </Card.Header>
+            <Card.Body>
+                Games: {category.games}<br/>
+                Guesses: {category.guesses}<br/>
+                Declines: {category.declines}<br/>
+            </Card.Body>
+            <Card.Footer>
+                <WordListView category={category} />
+                <NewWordInput />
+            </Card.Footer>
         </Card>
     )
 }
@@ -141,4 +137,6 @@ const Categories = () => (
     </div>
 )
 
-export default Categories
+export default !!(module as any).hot
+    ? Categories
+    : enhance(Categories);

@@ -1,31 +1,19 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/globals.css';
-import type { AppProps, NextWebVitalsMetric } from 'next/app';
-import Head from 'next/head';
+import type { AppProps } from 'next/app';
+// import Head from 'next/head';
 import { AnimatePresence, motion } from 'framer-motion';
-import { withHydrate } from "effector-next";
-import React, { useEffect, useState } from 'react';
-const enhance = withHydrate();
-import { useRouter } from 'next/dist/client/router';
-import Button from 'react-bootstrap/Button';
+// import { withHydrate } from "effector-next";
+import React, { Suspense, useEffect, useState } from 'react';
+// const enhance = withHydrate();
+import { useRouter } from 'next/router';
+// import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import 'effector-logger/inspector';
-
-const GoBack = () => {
-    const router = useRouter()
-    return router.route === '/'
-        ? null
-        : (
-            <Button
-                className="back"
-                // icon
-                onClick={() => router.back()}
-            >
-                {/* <Icon name="arrow left" /> */}
-                &laquo;
-            </Button>
-        )
-}
+// import 'effector-logger/inspector';
+import Link from 'next/link';
+import { Provider } from "effector-react/ssr";
+import { root } from "effector-root";
+import { useScope } from '../common/use-scope';
 
 const Loader = () => (
     <div className="loader">
@@ -76,41 +64,46 @@ const useTransitionDirection = () => {
     return reverse
 }
 
-const Heading = () => (
-    <Container className="text-center">
-        {/* <GoBack/> */}
-        <h1>ALIAS</h1>
-    </Container>
-)
-
 function MyApp({ Component, pageProps }: AppProps) {
+    const scope = useScope(root, pageProps.initialState);
+    console.log("App rendered", pageProps.initialState);
+
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+          const { attachLogger } = require("effector-logger/attach")
+          attachLogger(scope);
+        }
+      });
     const rev = useTransitionDirection()
     const router = useRouter()
     return (
+        <Provider value={scope}>
         <div className="App">
-        <Heading />
-        <AnimatePresence exitBeforeEnter initial={false}>
-            <motion.div
-                initial={{ x: rev ? '-80vw' : '80vw', opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                exit={{ x: rev ? '80vw' : '-80vw', opacity: 0 }}
-                key={router.route}
-                transition={{ duration: 0.25 }}
-                className="Page"
-            >
-                <Container className={`text-center ${Component.name || Component.displayName}`}>
+            <Container className="text-center">
+                <h1><Link href="/">ALIAS</Link></h1>
+            </Container>
+            <AnimatePresence exitBeforeEnter initial={false}>
+                <motion.div
+                    initial={{ x: rev ? '-80vw' : '80vw', opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    exit={{ x: rev ? '80vw' : '-80vw', opacity: 0 }}
+                    key={router.route}
+                    transition={{ duration: 0.25 }}
+                    className="Page"
+                >
+                    <Suspense fallback={<Loader/>}>
+                    <Container className={`text-center ${Component.name || Component.displayName}`}>
                         <Component {...pageProps} />
-                </Container>
-            </motion.div>
-        </AnimatePresence>
+                    </Container>
+                    </Suspense>
+                </motion.div>
+            </AnimatePresence>
         </div>
+        </Provider>
     );
 }
-export function reportWebVitals(metric: NextWebVitalsMetric) {
-    // console.log(metric)
-}
 
-export default
-enhance(
-    MyApp
-);
+export default MyApp
+// !!(module as any).hot
+//     ? MyApp
+//     : enhance(MyApp);

@@ -1,5 +1,5 @@
 import { persist } from 'effector-storage/local'
-import { createStore, createApi } from 'effector-next'
+import { createStore, createApi } from 'effector-root'
 
 export interface Team {
     name: string
@@ -36,7 +36,7 @@ export const $teamInput = createStore('', { name: 'TeamInput' })
 export const teamInputApi = createApi($teamInput, {
     setValue: (_, value: string) => value
 })
-export const changeTeamInput = teamInputApi.setValue.prepend(
+export const changeTeamInput = teamInputApi.setValue?.prepend(
     (e: any) => e.currentTarget.value
 )
 persist({ store: $teamInput, key: 'teamInput' })

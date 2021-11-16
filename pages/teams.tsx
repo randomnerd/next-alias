@@ -12,7 +12,7 @@ import {
     TeamList
 } from '../stores/teams'
 import { withStart } from "effector-next";
-import { pageLoaded } from "../models";
+import { pageLoaded } from "../stores/common";
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import CardGroup from 'react-bootstrap/CardGroup';
@@ -78,7 +78,7 @@ const NewTeamInput = () => {
                 placeholder='Name a new team...'
                 onKeyUp={inputKeyUp}
                 onChange={changeTeamInput}
-                value={teamInputValue}
+
             />
             <Button>{addTeamIcon}</Button>
         </InputGroup>
@@ -92,4 +92,6 @@ const Teams = () => (
     </div>
 )
 
-export default enhance(Teams);
+export default !!(module as any).hot
+    ? Teams
+    : enhance(Teams);
