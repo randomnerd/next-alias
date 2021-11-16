@@ -1,8 +1,5 @@
 import React, { useState } from 'react'
 import Form from 'react-bootstrap/Form';
-// import { withStart } from "effector-next";
-// import { pageLoaded } from "../stores/common";
-// const enhance = withStart(pageLoaded as any);
 
 const NewGame = () => {
     const [wordCount, setWordCount] = useState(30)
@@ -32,6 +29,3 @@ const NewGame = () => {
 }
 
 export default NewGame
-// export default !!(module as any).hot
-//     ? NewGame
-//     : enhance(NewGame);

@@ -2,9 +2,6 @@ import type { NextPage } from 'next';
 import Link from 'next/link';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
-// import { withStart } from "effector-next";
-import { pageLoaded } from "../stores/common";
-// const enhance = withStart(pageLoaded as any);
 
 const Home: NextPage = () => {
     return (
@@ -23,7 +20,3 @@ const Home: NextPage = () => {
 };
 
 export default Home
-// export default enhance(Home);
-// export default !!(module as any).hot
-//     ? Home
-//     : enhance(Home);

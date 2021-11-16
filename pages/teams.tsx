@@ -11,14 +11,11 @@ import {
     Team,
     TeamList
 } from '../stores/teams'
-import { withStart } from "effector-next";
-import { pageLoaded } from "../stores/common";
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import CardGroup from 'react-bootstrap/CardGroup';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
-const enhance = withStart(pageLoaded as any);
 
 export const useTeam = (name: string) => useStoreMap({
     store: $teams,
@@ -92,6 +89,4 @@ const Teams = () => (
     </div>
 )
 
-export default !!(module as any).hot
-    ? Teams
-    : enhance(Teams);
+export default Teams

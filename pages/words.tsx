@@ -22,9 +22,6 @@ import {
     wordInputApi,
     changeWordInput
 } from '../stores/words'
-import { withStart } from "effector-next";
-import { pageLoaded } from "../stores/common";
-const enhance = withStart(pageLoaded as any);
 
 const WordView = ({ wordValue }: any) => {
     const word = useWord(wordValue)
@@ -137,6 +134,4 @@ const Categories = () => (
     </div>
 )
 
-export default !!(module as any).hot
-    ? Categories
-    : enhance(Categories);
+export default Categories

@@ -39,15 +39,15 @@
 //   ? enhance(config)
 //   : config
 module.exports = {
-  eslint: { ignoreDuringBuilds: false },
+  eslint: { ignoreDuringBuilds: true },
   webpack5: true,
   optimizeFonts: true,
   swcMinify: true,
-  // reactStrictMode: true,
+  reactStrictMode: true,
   generateEtags: true,
   outputFileTracing: true,
   experimental: {
-    plugins: true,
+    // plugins: true,
     // serverComponents: true,
     // concurrentFeatures: true,
     reactRoot: true,
