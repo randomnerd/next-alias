@@ -6,6 +6,8 @@ import React, { Suspense, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Container from 'react-bootstrap/Container';
 import Link from 'next/link';
+import {Provider} from 'effector-react/scope'
+import { serialize, fork } from 'effector'
 
 const Loader = () => (
     <div className="loader">
