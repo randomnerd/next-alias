@@ -40,19 +40,19 @@
 //   : config
 module.exports = {
   eslint: { ignoreDuringBuilds: true },
-  webpack5: true,
-  optimizeFonts: true,
+  // webpack5: true,
+  // optimizeFonts: true,
   swcMinify: true,
   reactStrictMode: true,
-  generateEtags: true,
-  outputFileTracing: true,
+  // generateEtags: true,
+  // outputFileTracing: true,
   experimental: {
     // plugins: true,
     // serverComponents: true,
     // concurrentFeatures: true,
     reactRoot: true,
-    optimizeImages: true,
-    optimizeCss: true,
+    // optimizeImages: true,
+    // optimizeCss: true,
 
   }
 }

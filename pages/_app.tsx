@@ -73,11 +73,11 @@ function MyApp({ Component, pageProps }: AppProps) {
                     transition={{ duration: 0.25 }}
                     className="Page"
                 >
-                    <Suspense fallback={<Loader/>}>
+                    {/* <Suspense fallback={<Loader/>}> */}
                     <Container className={`text-center ${Component.name || Component.displayName}`}>
                         <Component {...pageProps} />
                     </Container>
-                    </Suspense>
+                    {/* </Suspense> */}
                 </motion.div>
             </AnimatePresence>
         </div>
