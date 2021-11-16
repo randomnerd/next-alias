@@ -9,56 +9,27 @@ import Link from 'next/link';
 import {Provider} from 'effector-react/scope'
 import { serialize, fork } from 'effector'
 
-const Loader = () => (
-    <div className="loader">
-        <style jsx>{`
-        .loader {
-          border: 8px solid #f3f3f3; /* Light grey */
-          border-top: 8px solid #3498db; /* Blue */
-          border-radius: 50%;
-          width: 40px;
-          height: 40px;
-          animation: spin 2s linear infinite;
-          margin-left: auto;
-          margin-right: auto;
-          margin-top: 40px;
-        }
-
-        @keyframes spin {
-          0% {
-            transform: rotate(0deg);
-          }
-          100% {
-            transform: rotate(360deg);
-          }
-        }
-      `}</style>
-    </div>
-);
+const Loader = () => <div className="loader" />
 
 const useTransitionDirection = () => {
     const router = useRouter()
     const [lastIdx, setLastIdx] = useState(0)
     const [reverse, setReverse] = useState(false)
+
+    const newRouteHandler = () => {
+        setLastIdx(window.history.state.idx)
+        if (reverse) setTimeout(() => setReverse(false), 400)
+    }
+
     useEffect(() => {
-        router.beforePopState((newState: any) => {
-            setReverse(lastIdx > newState.idx)
-            return true
-        })
-        const newRouteHandler = (...args: any) => {
-            const currentIdx = window.history.state.idx
-            setLastIdx(currentIdx)
-            if (reverse) setTimeout(() => setReverse(false), 400)
-        }
+        router.beforePopState((s: any) => (setReverse(lastIdx > s.idx), true))
         router.events.on('routeChangeComplete', newRouteHandler)
-        return () => {
-            router.events.off('routeChangeComplete', newRouteHandler)
-        }
+        return () => router.events.off('routeChangeComplete', newRouteHandler)
     })
     return reverse
 }
 
-let clientScope: Scope
+let clientScope: any
 
 function MyApp({ Component, pageProps }: AppProps) {
     const scope = fork({
@@ -78,22 +49,22 @@ function MyApp({ Component, pageProps }: AppProps) {
             <Container className="text-center">
                 <h1><Link href="/">ALIAS</Link></h1>
             </Container>
+                <Suspense fallback={<Loader/>}>
             <AnimatePresence exitBeforeEnter initial={false}>
                 <motion.div
                     initial={{ x: rev ? '-80vw' : '80vw', opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     exit={{ x: rev ? '80vw' : '-80vw', opacity: 0 }}
-                    key={router.route}
                     transition={{ duration: 0.25 }}
+                    key={router.route}
                     className="Page"
                 >
-                    {/* <Suspense fallback={<Loader/>}> */}
                     <Container className={`text-center ${Component.name || Component.displayName}`}>
                         <Component {...pageProps} />
                     </Container>
-                    {/* </Suspense> */}
                 </motion.div>
             </AnimatePresence>
+                    </Suspense>
         </div>
         </Provider>
     );
