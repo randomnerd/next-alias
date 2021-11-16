@@ -41,7 +41,6 @@
 module.exports = {
   eslint: { ignoreDuringBuilds: false },
   webpack5: true,
-  distDir: 'build',
   optimizeFonts: true,
   swcMinify: true,
   // reactStrictMode: true,
