@@ -1,13 +1,14 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap/dist/css/bootstrap-grid.min.css';
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { AnimatePresence, motion } from 'framer-motion';
-import React, { Suspense, useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Container from 'react-bootstrap/Container';
 import Link from 'next/link';
 import {Provider} from 'effector-react/scope'
-import { serialize, fork } from 'effector'
+// import { serialize, fork } from 'effector'
 
 const Loader = () => <div className="loader" />
 
@@ -32,14 +33,15 @@ const useTransitionDirection = () => {
 let clientScope: any
 
 function MyApp({ Component, pageProps }: AppProps) {
-    const scope = fork({
-        values: {
-            ...(clientScope && serialize(clientScope)),
-            ...pageProps.initialState,
-        },
-    })
-    if (typeof window !== 'undefined') clientScope = scope
-    console.log('scope', serialize(scope))
+
+    // const scope = fork({
+    //     values: {
+    //         ...(clientScope && serialize(clientScope)),
+    //         ...pageProps.initialState,
+    //     },
+    // })
+    // if (typeof window !== 'undefined') clientScope = scope
+    // console.log('scope', serialize(scope))
 
     const rev = useTransitionDirection()
     const router = useRouter()
@@ -49,7 +51,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             <Container className="text-center">
                 <h1><Link href="/">ALIAS</Link></h1>
             </Container>
-                <Suspense fallback={<Loader/>}>
+                {/* <Suspense fallback={<Loader/>}> */}
             <AnimatePresence exitBeforeEnter initial={false}>
                 <motion.div
                     initial={{ x: rev ? '-80vw' : '80vw', opacity: 0 }}
@@ -64,7 +66,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                     </Container>
                 </motion.div>
             </AnimatePresence>
-                    </Suspense>
+                    {/* </Suspense> */}
         </div>
         </Provider>
     );

@@ -1,5 +1,5 @@
 import { persist } from 'effector-storage/local'
-import { createStore, createApi } from 'effector'
+import { createStore, createApi } from 'effector-next'
 
 export interface Team {
     name: string

@@ -39,39 +39,37 @@ const enhance = withEffectorReactAliases();
 //   ? enhance(config)
 //   : config
 
-const Critters = require('critters-webpack-plugin')
-const HtmlPlugin = require('html-webpack-plugin')
+// const Critters = require('critters-webpack-plugin')
+// const HtmlPlugin = require('html-webpack-plugin')
 module.exports = enhance({
-  mode: 'production',
   eslint: { ignoreDuringBuilds: true },
-  optimizeFonts: false,
+  optimizeFonts: true,
   // swcMinify: true,
   reactStrictMode: true,
   generateEtags: true,
   outputFileTracing: true,
   experimental: {
     plugins: true,
-    // serverComponents: true,
-    // concurrentFeatures: true,
-    // concurrentFeatures: process.env.NODE_ENV === 'production',
     reactRoot: true,
-    optimizeImages: false,
-    optimizeCss: false,
+    optimizeImages: true,
+    optimizeCss: true,
+    reactStrictMode: true,
 
   },
-  webpack(config, options) {
-    console.log(config)
-    console.log(options)
-    config.plugins.push(new HtmlPlugin())
-    config.plugins.push(new Critters({
-      // external: true,
-      preload: 'swap',
-      fonts: true,
-      // inlineThreshold: 1024,
-    }))
-    if (typeof config.webpack === "function") {
-      return config.webpack(config, options);
-    }
-    return config
-  }
+  // webpack(config, options) {
+  //   const newConfig = {...config}
+  //   newConfig.plugins.push(new HtmlPlugin())
+  //   newConfig.plugins.push(new Critters({
+  //     // external: true,
+  //     preload: 'swap',
+  //     // fonts: true,
+  //     preloadFonts: true,
+  //     // inlineThreshold: 1024,
+  //   }))
+  //   const cfg = typeof newConfig.webpack === "function"
+  //     ? newConfig.webpack(config, options)
+  //     : newConfig
+  //   console.dir(cfg, { depth: 9 })
+  //   return cfg
+  // }
 });
