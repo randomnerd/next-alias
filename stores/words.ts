@@ -1,5 +1,5 @@
 import { persist } from 'effector-storage/local'
-import { createStore, createApi } from 'effector-next'
+import { createStore, createApi } from 'effector'
 import { useStoreMap } from 'effector-react'
 
 export interface Word {

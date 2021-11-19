@@ -3,9 +3,9 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from '../styles/Home.module.css';
-import { withStart } from "effector-next";
-import { pageLoaded } from "../models";
-const enhance = withStart(pageLoaded as any);
+// import { withStart } from "effector-next";
+// import { pageLoaded } from "../models";
+// const enhance = withStart(pageLoaded as any);
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
 
 const Home: NextPage = () => {
@@ -24,4 +24,4 @@ const Home: NextPage = () => {
     );
 };
 
-export default enhance(Home);
+export default Home;

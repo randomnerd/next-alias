@@ -19,9 +19,9 @@ import {
     Team,
     TeamList
 } from '../stores/teams'
-import { withStart } from "effector-next";
-import { pageLoaded } from "../models";
-const enhance = withStart(pageLoaded as any);
+// import { withStart } from "effector-next";
+// import { pageLoaded } from "../models";
+// const enhance = withStart(pageLoaded as any);
 
 export const useTeam = (name: string) => useStoreMap({
     store: $teams,
@@ -58,7 +58,7 @@ const TeamView = ({ teamName }: { teamName: string }) => {
 }
 
 const TeamListView = () => {
-    const teams = useList($teamNames, name => <TeamView teamName={name} />)
+    const teams = useList($teamNames, (name: string) => <TeamView teamName={name} />)
     return (
         <Card.Group itemsPerRow={2}>
             {teams}
@@ -98,4 +98,4 @@ const Teams = () => (
     </div>
 )
 
-export default enhance(Teams);
+export default Teams;

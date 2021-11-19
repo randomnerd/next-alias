@@ -1,11 +1,9 @@
 import '../styles/globals.css';
-import 'semantic-ui-css/semantic.min.css'
+// import 'semantic-ui-css/semantic.min.css'
 import type { AppProps } from 'next/app';
 import Link from 'next/link'
 import { AnimatePresence, motion } from 'framer-motion';
-import { withHydrate } from "effector-next";
 import { useEffect, useState, lazy } from 'react';
-const enhance = withHydrate();
 import { useRouter } from 'next/dist/client/router';
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button'
 import Container from 'semantic-ui-react/dist/commonjs/elements/Container'
@@ -119,7 +117,4 @@ function MyApp({ Component, pageProps }: AppProps) {
         </div>
     );
 }
-export default
-enhance(
-    MyApp
-);
+export default MyApp
