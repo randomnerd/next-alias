@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "critters": "^0.0.14",
     "effector": "^22.1.2",
     "effector-react": "^22.0.4",
     "effector-storage": "^4.5.0",
