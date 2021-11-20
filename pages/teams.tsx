@@ -1,14 +1,9 @@
 import React from 'react'
-import Button from 'semantic-ui-react/dist/commonjs/elements/Button'
-import Input from 'semantic-ui-react/dist/commonjs/elements/Input'
-import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon'
-import Card from 'semantic-ui-react/dist/commonjs/views/Card'
 import { useList, useStore, useStoreMap } from 'effector-react'
-// import 'semantic-ui-css/components/card.css'
-// import 'semantic-ui-css/components/button.css'
-// import 'semantic-ui-css/components/icon.css'
-// import 'semantic-ui-css/components/input.css'
-// import '../css/teams.css'
+import Card from 'semantic-ui-react/dist/commonjs/views/Card'
+import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon'
+import Input from 'semantic-ui-react/dist/commonjs/elements/Input'
+import Button from 'semantic-ui-react/dist/commonjs/elements/Button'
 import {
     teamApi,
     $teamNames,
@@ -19,9 +14,6 @@ import {
     Team,
     TeamList
 } from '../stores/teams'
-// import { withStart } from "effector-next";
-// import { pageLoaded } from "../models";
-// const enhance = withStart(pageLoaded as any);
 
 export const useTeam = (name: string) => useStoreMap({
     store: $teams,

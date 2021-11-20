@@ -1,16 +1,10 @@
 import { useList, useStore } from 'effector-react'
-import Button from 'semantic-ui-react/dist/commonjs/elements/Button'
+import Card from 'semantic-ui-react/dist/commonjs/views/Card'
+import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon'
 import Label from 'semantic-ui-react/dist/commonjs/elements/Label'
 import Input from 'semantic-ui-react/dist/commonjs/elements/Input'
-import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon'
-import Card from 'semantic-ui-react/dist/commonjs/views/Card'
+import Button from 'semantic-ui-react/dist/commonjs/elements/Button'
 
-// import 'semantic-ui-css/components/label.css'
-// import 'semantic-ui-css/components/card.css'
-// import 'semantic-ui-css/components/icon.css'
-// import 'semantic-ui-css/components/button.css'
-// import 'semantic-ui-css/components/input.css'
-// import '../css/categories.css'
 import {
     $categoryInput,
     categoryApi,
@@ -84,14 +78,14 @@ const NewWordInput = () => {
     }
     return (
         <Input fluid
+            type="text"
             size="small"
             id='categoryName'
-            type="text"
-            placeholder='Name a new word...'
             icon={addWordIcon}
             onKeyUp={inputKeyUp}
-            onChange={changeWordInput}
             value={wordInputValue}
+            onChange={changeWordInput}
+            placeholder='Name a new word...'
         />
     )
 }

@@ -1,20 +1,20 @@
+import 'semantic-ui-css/components/reset.min.css'
+import 'semantic-ui-css/components/icon.min.css'
+import 'semantic-ui-css/components/button.min.css'
+import 'semantic-ui-css/components/header.min.css'
+import 'semantic-ui-css/components/segment.min.css'
+import 'semantic-ui-css/components/container.min.css'
+import 'semantic-ui-css/components/site.min.css'
 import '../styles/globals.css';
-// import 'semantic-ui-css/semantic.min.css'
 import type { AppProps } from 'next/app';
-import Link from 'next/link'
-import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect, useState, lazy } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/dist/client/router';
-import Button from 'semantic-ui-react/dist/commonjs/elements/Button'
-import Container from 'semantic-ui-react/dist/commonjs/elements/Container'
-import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment'
+import { AnimatePresence, motion } from 'framer-motion';
 import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon'
+import Button from 'semantic-ui-react/dist/commonjs/elements/Button'
 import Header from 'semantic-ui-react/dist/commonjs/elements/Header'
-
-
-// const Teams = lazy(() => import("./teams"));
-// const NewGame = lazy(() => import("../components/newgame"));
-// const Categories = lazy(() => import("../components/categories"));
+import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment'
+import Container from 'semantic-ui-react/dist/commonjs/elements/Container'
 
 const GoBack = () => {
     const router = useRouter()
@@ -117,4 +117,5 @@ function MyApp({ Component, pageProps }: AppProps) {
         </div>
     );
 }
+
 export default MyApp

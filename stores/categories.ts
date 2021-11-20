@@ -1,6 +1,6 @@
+import { useStoreMap } from 'effector-react'
 import { persist } from 'effector-storage/local'
 import { createStore, createApi } from 'effector'
-import { useStoreMap } from 'effector-react'
 import { Word } from './words'
 
 export interface Category {
