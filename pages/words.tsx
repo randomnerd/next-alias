@@ -1,3 +1,6 @@
+import 'semantic-ui-css/components/card.min.css'
+import 'semantic-ui-css/components/label.min.css'
+import 'semantic-ui-css/components/input.min.css'
 import { useList, useStore } from 'effector-react'
 import Card from 'semantic-ui-react/dist/commonjs/views/Card'
 import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon'

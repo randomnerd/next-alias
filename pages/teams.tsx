@@ -1,3 +1,5 @@
+import 'semantic-ui-css/components/card.min.css'
+import 'semantic-ui-css/components/input.min.css'
 import React from 'react'
 import { useList, useStore, useStoreMap } from 'effector-react'
 import Card from 'semantic-ui-react/dist/commonjs/views/Card'

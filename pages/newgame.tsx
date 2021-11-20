@@ -1,3 +1,6 @@
+import 'semantic-ui-css/components/segment.min.css'
+import 'semantic-ui-css/components/label.min.css'
+import 'semantic-ui-css/components/checkbox.min.css'
 import React, { useState } from 'react'
 import { Slider } from 'react-semantic-ui-range'
 import { Checkbox, Label, Segment } from 'semantic-ui-react'
