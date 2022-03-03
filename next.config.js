@@ -2,8 +2,8 @@
 
 module.exports = {
         eslint: { ignoreDuringBuilds: true },
-        // optimizeFonts: true,
-        // swcMinify: true,
+        optimizeFonts: true,
+        swcMinify: true,
         // // reactStrictMode: true,
         generateEtags: true,
         outputFileTracing: true,

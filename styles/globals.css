@@ -7,6 +7,8 @@ body,
   contain: content;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  overflow-x: hidden;
+  overflow-y: auto !important;
 }
 * {
   -webkit-tap-highlight-color: transparent !important;
@@ -48,4 +50,9 @@ a {
 
 .input {
   margin-bottom: 1.5em !important;
+}
+
+.Heading {
+  margin-top: 1.5em !important;
+  margin-bottom: 1em !important;
 }

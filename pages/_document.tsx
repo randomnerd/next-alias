@@ -25,6 +25,8 @@ import Document, { Head, Html, Main, NextScript } from 'next/document'
       return (
         <Html lang="en">
           <Head />
+            <title>ALIAS</title>
+            <meta name="description" content="alias game" />
             <Main />
             <NextScript />
         </Html>

@@ -1,5 +1,6 @@
 import 'semantic-ui-css/components/reset.min.css'
 import 'semantic-ui-css/components/icon.min.css'
+import 'semantic-ui-css/components/label.min.css'
 import 'semantic-ui-css/components/button.min.css'
 import 'semantic-ui-css/components/header.min.css'
 import 'semantic-ui-css/components/segment.min.css'
@@ -7,14 +8,16 @@ import 'semantic-ui-css/components/container.min.css'
 import 'semantic-ui-css/components/site.min.css'
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/dist/client/router';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { AnimatePresence, motion } from 'framer-motion';
 import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon'
+import Label from 'semantic-ui-react/dist/commonjs/elements/Label'
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button'
 import Header from 'semantic-ui-react/dist/commonjs/elements/Header'
 import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment'
 import Container from 'semantic-ui-react/dist/commonjs/elements/Container'
+import Link from 'next/link';
 
 const GoBack = () => {
     const router = useRouter()
@@ -84,9 +87,12 @@ const useTransitionDirection = () => {
 const Heading = () => (
     <Container className="Heading">
         <Segment basic>
-            <GoBack/>
             <Header textAlign='center' size="huge">
-                ALIAS
+                <Link href="/" passHref>
+                    <Label size="massive" color="blue" basic>
+                        THE ALIAS GAME
+                    </Label>
+                </Link>
             </Header>
         </Segment>
     </Container>
