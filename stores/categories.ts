@@ -45,14 +45,5 @@ export const changeCategoryInput = categoryInputApi.setValue.prepend(
     (e: any) => e.currentTarget.value
 )
 
-export const useCategory = (name: string) => useStoreMap({
-    store: $categories,
-    keys: [name],
-    fn(state: CategoryList, [_name]: string[]): Category | null {
-        if (_name in state) return state[_name]
-        return null
-    },
-})
-
 persist({ store: $categories, key: 'categories' })
 persist({ store: $categoryInput, key: 'categoryInput' })

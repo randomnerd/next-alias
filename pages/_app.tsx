@@ -8,9 +8,8 @@ import 'semantic-ui-css/components/container.min.css'
 import 'semantic-ui-css/components/site.min.css'
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
-import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { AnimatePresence, motion } from 'framer-motion';
+// import { AnimatePresence, motion } from 'framer-motion';
 import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon'
 import Label from 'semantic-ui-react/dist/commonjs/elements/Label'
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button'
@@ -62,28 +61,6 @@ const Loader = () => (
     </div>
 );
 
-const useTransitionDirection = () => {
-    const router = useRouter()
-    const [lastIdx, setLastIdx] = useState(0)
-    const [reverse, setReverse] = useState(false)
-    useEffect(() => {
-        router.beforePopState((newState: any) => {
-            setReverse(lastIdx > newState.idx)
-            return true
-        })
-        const newRouteHandler = (...args: any) => {
-            const currentIdx = window.history.state.idx
-            setLastIdx(currentIdx)
-            if (reverse) setTimeout(() => setReverse(false), 400)
-        }
-        router.events.on('routeChangeComplete', newRouteHandler)
-        return () => {
-            router.events.off('routeChangeComplete', newRouteHandler)
-        }
-    })
-    return reverse
-}
-
 const Heading = () => (
     <Container className="Heading">
         <Segment basic>
@@ -99,6 +76,29 @@ const Heading = () => (
 )
 
 function MyApp({ Component, pageProps }: AppProps) {
+    const { useState, useEffect } = require('react')
+    const { AnimatePresence, motion } = require('framer-motion')
+    const useTransitionDirection = () => {
+        const router = useRouter()
+        const [lastIdx, setLastIdx] = useState(0)
+        const [reverse, setReverse] = useState(false)
+        useEffect(() => {
+            router.beforePopState((newState: any) => {
+                setReverse(lastIdx > newState.idx)
+                return true
+            })
+            const newRouteHandler = (...args: any) => {
+                const currentIdx = window.history.state.idx
+                setLastIdx(currentIdx)
+                if (reverse) setTimeout(() => setReverse(false), 400)
+            }
+            router.events.on('routeChangeComplete', newRouteHandler)
+            return () => {
+                router.events.off('routeChangeComplete', newRouteHandler)
+            }
+        })
+        return reverse
+    }
     const rev = useTransitionDirection()
     const router = useRouter()
     return (

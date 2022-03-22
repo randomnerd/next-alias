@@ -1,7 +1,6 @@
 import 'semantic-ui-css/components/card.min.css'
 import 'semantic-ui-css/components/input.min.css'
 import React from 'react'
-import { useList, useStore, useStoreMap } from 'effector-react'
 import Card from 'semantic-ui-react/dist/commonjs/views/Card'
 import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon'
 import Input from 'semantic-ui-react/dist/commonjs/elements/Input'
@@ -17,16 +16,16 @@ import {
     TeamList
 } from '../stores/teams'
 
-export const useTeam = (name: string) => useStoreMap({
-    store: $teams,
-    keys: [name],
-    fn(state: TeamList, [_name]: string[]): Team | null {
-        if (_name in state) return state[_name]
-        return null
-    },
-})
-
 const TeamView = ({ teamName }: { teamName: string }) => {
+    const { useStoreMap } = require('effector-react')
+    const useTeam = (name: string) => useStoreMap({
+        store: $teams,
+        keys: [name],
+        fn(state: TeamList, [_name]: string[]): Team | null {
+            if (_name in state) return state[_name]
+            return null
+        },
+    })
     const team = useTeam(teamName)
     return team && (
         <Card>
@@ -52,6 +51,7 @@ const TeamView = ({ teamName }: { teamName: string }) => {
 }
 
 const TeamListView = () => {
+    const { useList } = require('effector-react')
     const teams = useList($teamNames, (name: string) => <TeamView teamName={name} />)
     return (
         <Card.Group itemsPerRow={2}>
@@ -61,6 +61,7 @@ const TeamListView = () => {
 }
 
 const NewTeamInput = () => {
+    const { useStore } = require('effector-react')
     const teamInputValue = useStore($teamInput)
     const addTeam = () => {
         teamApi.create(teamInputValue)

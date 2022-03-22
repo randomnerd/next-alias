@@ -1,6 +1,11 @@
 /** @type {import('next').NextConfig} */
+const withPreact = require('next-plugin-preact');
+// const WebpackModules = require('webpack-modules');
 
-module.exports = {
+// const withCSS = require('@zeit/next-css');
+
+module.exports = //withCSS(
+  withPreact({
         eslint: { ignoreDuringBuilds: true },
         optimizeFonts: true,
         swcMinify: true,
@@ -17,18 +22,18 @@ module.exports = {
         },
         // webpack(config, options) {
         //   const newConfig = {...config}
-        //   newConfig.plugins.push(new HtmlPlugin())
-        //   newConfig.plugins.push(new Critters({
-        //     // external: true,
-        //     preload: 'swap',
-        //     // fonts: true,
-        //     preloadFonts: true,
-        //     // inlineThreshold: 1024,
-        //   }))
+        //   newConfig.plugins.push(new WebpackModules())
+        //   // newConfig.plugins.push(new Critters({
+        //   //   // external: true,
+        //   //   preload: 'swap',
+        //   //   // fonts: true,
+        //   //   preloadFonts: true,
+        //   //   // inlineThreshold: 1024,
+        //   // }))
         //   const cfg = typeof newConfig.webpack === "function"
         //     ? newConfig.webpack(config, options)
         //     : newConfig
-        //   console.dir(cfg, { depth: 9 })
         //   return cfg
         // }
-};
+})
+// );

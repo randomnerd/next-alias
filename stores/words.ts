@@ -44,15 +44,6 @@ export const wordApi = createApi($words, {
     }
 })
 
-export const useWord = (value: string) => useStoreMap({
-    store: $words,
-    keys: [value],
-    fn(state: WordList, [_value]: string[]): Word | null {
-        if (_value in state) return state[_value]
-        return null
-    },
-})
-
 export const changeWordInput = wordInputApi.setValue.prepend(
     (e: any) => e.currentTarget.value
 )
