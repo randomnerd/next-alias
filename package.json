@@ -16,6 +16,7 @@
     "framer-motion": "^5.0.0",
     "next": "12.1.0",
     "next-plugin-preact": "^3.0.6",
+    "preact": "^10.6.6",
     "react": "npm:@preact/compat@^17.0.3",
     "react-dom": "npm:@preact/compat@^17.0.3",
     "react-semantic-ui-range": "^0.7.1",
