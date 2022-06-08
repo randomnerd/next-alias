@@ -3,9 +3,75 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+  // shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model Team {
+  id      Int     @id @default(autoincrement())
+  name    String
+  wins    Int     @default(0)
+  matches Int     @default(0)
+  games   Game[]
+  scores  Score[]
+
+  @@map("teams")
+}
+
+model Word {
+  id         Int        @id @default(autoincrement())
+  value      String
+  guessed    Int        @default(0)
+  skipped    Int        @default(0)
+  categories Category[]
+
+  @@map("words")
+}
+
+model Category {
+  id      Int    @id @default(autoincrement())
+  name    String
+  guessed Int    @default(0)
+  skipped Int    @default(0)
+  words   Word[]
+
+  @@map("categories")
+}
+
+enum GameStatus {
+  NEW
+  STARTED
+  FINISHED
+
+  @@map("game_status")
+}
+
+model Game {
+  id     Int        @id @default(autoincrement())
+  teams  Team[]
+  round  Int        @default(0)
+  turn   Int        @default(0)
+  status GameStatus @default(NEW)
+  scores Score[]
+
+  @@map("games")
+}
+
+model Score {
+  id     Int  @id @default(autoincrement())
+  guessed  Int  @default(0)
+  skipped  Int  @default(0)
+  team   Team @relation(fields: [teamId], references: [id])
+  teamId Int
+  game   Game @relation(fields: [gameId], references: [id])
+  gameId Int
+  round Int @default(0)
+
+  @@map("scores")
 }
